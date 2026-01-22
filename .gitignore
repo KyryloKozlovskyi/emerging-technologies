@@ -3,7 +3,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,macos,windows,linux,rust,c++,visualstudiocode
 
 # Codespaces and Devcontainer
-.devcontainer/
+.devcontainer
 .vscode
 
 ### C++ ###

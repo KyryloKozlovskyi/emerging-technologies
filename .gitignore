@@ -2,6 +2,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python,macos,windows,linux,rust,c++,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,macos,windows,linux,rust,c++,visualstudiocode
 
+# Codespaces and Devcontainer
+.devcontainer/
+.vscode
+
 ### C++ ###
 # Prerequisites
 *.d

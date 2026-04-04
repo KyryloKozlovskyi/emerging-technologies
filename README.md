@@ -1,122 +1,82 @@
 # Emerging Technologies
 
-Assessment submission for the Emerging Technologies module (Summer 25/26).
+**Module:** Emerging Technologies, Summer 25/26  
+**Author:** Kyrylo Kozlovskyi
 
-Primary deliverable: [problems.ipynb](problems.ipynb)
+## About This Repository
 
-This notebook implements and evaluates classical and quantum approaches to the constant-vs-balanced Boolean function problem, progressing from function generation to full Deutsch-Jozsa execution in Qiskit.
+This repository contains my assessment submission for the [Emerging Technologies](https://www.atu.ie/) module at Atlantic Technological University. The primary deliverable is a Jupyter notebook ([`problems.ipynb`](problems.ipynb)) that explores the difference between classical and quantum approaches to determining whether a Boolean function is constant or balanced.
 
-Target audience: an informed computing professional who can run and evaluate the work without additional guidance.
+The notebook focuses on the [Deutsch-Jozsa algorithm](https://quantum.cloud.ibm.com/learning/en/modules/computer-science/deutsch-jozsa) — one of the earliest demonstrations of quantum computational advantage. First proposed by [Deutsch (1985)](https://doi.org/10.1098/rspa.1985.0070) for the single-bit case and later generalised by [Deutsch & Jozsa (1992)](https://doi.org/10.1098/rspa.1992.0167), the algorithm determines a global property of a function using a single quantum query where a classical approach may require up to nine.
 
-## Quick Evaluator Path
+All quantum circuits are implemented using [Qiskit](https://www.ibm.com/quantum/qiskit) and simulated locally with [Qiskit Aer](https://qiskit.github.io/qiskit-aer/).
 
-If you are assessing this repository, the fastest path is:
+## Notebook Overview
 
-1. Open [problems.ipynb](problems.ipynb).
-2. Select Kernel -> Restart & Run All.
-3. Confirm all test cells print pass messages.
-4. Review each Problem section (1 to 5) and its Theory, Implementation, Demonstration, and Testing subsections.
+The notebook works through five problems that build on each other, progressing from classical computation to quantum circuit design:
 
-Expected headline outcome:
+1. **Generating Random Boolean Functions** — constructing callable oracle functions that are either constant or balanced, using truth tables and closures to simulate black-box behaviour.
+2. **Classical Testing for Function Type** — building a deterministic classifier with an early-exit strategy, and analysing its worst-case query complexity ($2^{n-1} + 1 = 9$ queries for $n = 4$) using the pigeonhole principle.
+3. **Quantum Oracles** — encoding the four single-bit Boolean functions as reversible quantum gate circuits using X and CX gates, following the standard oracle model $U_f|x\rangle|y\rangle = |x\rangle|y \oplus f(x)\rangle$.
+4. **Deutsch's Algorithm** — implementing the single-bit quantum algorithm with Qiskit, demonstrating phase kickback and interference to classify an oracle with one query.
+5. **Deutsch-Jozsa Algorithm** — generalising to 4-bit inputs using multi-controlled X gates, showing that a single quantum query replaces up to nine classical queries.
 
-- Classical worst-case (4-bit promise problem): $2^{n-1} + 1 = 9$ queries.
-- Deutsch-Jozsa (same promise): 1 oracle query.
+Each problem includes a structured narrative (Problem Description, My Understanding, Theory/Background, Approach, Discussion, Implementation, Demonstration, and Testing), code implementations with comments and docstrings, circuit diagrams, and independent verification tests.
 
-## Problem Coverage
-
-The notebook addresses all five required problems from the brief.
-
-1. Generating Random Boolean Functions:
-   implement `random_constant_balanced`, which returns a randomly chosen four-input Boolean function guaranteed to be either constant or balanced.
-2. Classical Testing for Function Type:
-   implement `determine_constant_balanced(f)` to classify a promised oracle as `"constant"` or `"balanced"`, and analyze the maximum number of classical queries needed for certainty.
-3. Quantum Oracles:
-   create the four one-bit Deutsch oracles in Qiskit (for the four possible single-input Boolean functions), demonstrate their use, and explain how each circuit implements its function.
-4. Deutsch's Algorithm with Qiskit:
-   design and run the full Deutsch circuit using the Problem 3 oracles, and explain how interference allows one-query constant-vs-balanced classification.
-5. Scaling to the Deutsch-Jozsa Algorithm:
-   build a four-bit Deutsch-Jozsa circuit in Qiskit, explain the classical-to-quantum oracle encoding, and demonstrate correct classification on both constant functions and two balanced functions.
-
-Each problem includes:
-
-- Narrative explanation and contextualized references.
-- Clean code with comments and docstrings.
-- Demonstration cells.
-- Dedicated verification tests.
-
-## Assessment Alignment Notes
-
-- Brief reference: [roughwork/assessment.md](roughwork/assessment.md)
-- Guidance reference: [roughwork/notes/assessment-guidance.ipynb](roughwork/notes/assessment-guidance.ipynb)
-- Referencing style in the notebook: citations are placed inline where claims are made, with context about why each source is relevant.
-
-## Setup and Reproducibility
+## Getting Started
 
 ### Prerequisites
 
-- [Python](https://www.python.org/downloads/) 3.10+
+- [Python 3](https://www.python.org/downloads/) (3.10 or later recommended)
 - [Git](https://git-scm.com/)
 
-### Standard Local Setup
+### Clone the Repository
 
 ```bash
 git clone https://github.com/KyryloKozlovskyi/emerging-technologies.git
 cd emerging-technologies
+```
+
+### Install Dependencies
+
+It is recommended to use a virtual environment:
+
+```bash
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install --upgrade pip
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
+```
+
+### Run the Notebook
+
+```bash
 jupyter notebook problems.ipynb
 ```
 
-Then run all cells from a fresh kernel.
+Then select **Kernel > Restart & Run All** to execute every cell from scratch and verify that the notebook runs without errors.
 
-### Optional VS Code Dev Container
+## Repository Structure
 
-This repository includes a ready dev container at [.devcontainer/devcontainer.json](.devcontainer/devcontainer.json) with Python, Jupyter, and recommended extensions preconfigured.
-
-### Reproducibility Notes
-
-- No external datasets are required.
-- No manual file downloads are required.
-- The environment is defined by [requirements.txt](requirements.txt).
-- Repository hygiene is controlled via [.gitignore](.gitignore).
-
-## Evidence Against Marking Criteria
-
-The assessment uses five equally weighted categories. Evidence in this repository is summarized below.
-
-| Category      | Evidence in this submission                                                                                                                      |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Presentation  | Clear repository structure, concise setup instructions, logical notebook narrative, and consistent headings in [problems.ipynb](problems.ipynb). |
-| Research      | Inline references in context throughout the notebook, including academic and official technical sources, with explanation of relevance.          |
-| Documentation | Explanatory markdown, docstrings, targeted comments, and explicit discussion sections in each problem.                                           |
-| Development   | Working implementations for all required tasks, modular functions, simulation runs, and dedicated test cells validating correctness.             |
-| Consistency   | Commit history on main shows iterative problem-by-problem development, refinement, and documentation improvements over time.                     |
-
-## Repository Structure (Required Assessment Files)
-
-```text
+```
 emerging-technologies/
-├── problems.ipynb
-├── README.md
-├── requirements.txt
-└── .gitignore
+├── problems.ipynb      # Main assessment notebook (5 problems)
+├── requirements.txt    # Python package dependencies
+├── .gitignore          # Standard Python/Jupyter ignores
+└── README.md           # This file
 ```
 
-## Submission Readiness Checklist
+## Technologies Used
 
-Before final submission, verify:
+- [Qiskit](https://www.ibm.com/quantum/qiskit) — quantum circuit construction, visualisation, and simulation. Used to build the oracle circuits, Deutsch's algorithm circuit, and the Deutsch-Jozsa circuit.
+- [Qiskit Aer](https://qiskit.github.io/qiskit-aer/) — local quantum simulator backend (`qasm_simulator`) for executing circuits without access to real quantum hardware.
+- [Python Standard Library](https://docs.python.org/3/library/) — `random` for generating constant and balanced truth tables, `itertools` for producing all Boolean input combinations.
 
-- [ ] Repository URL submitted in the required format.
-- [ ] [problems.ipynb](problems.ipynb) is in the repo root and runs top-to-bottom without errors.
-- [ ] [README.md](README.md), [.gitignore](.gitignore), and [requirements.txt](requirements.txt) are accurate and up to date.
-- [ ] Commit history reflects steady progress and meaningful increments.
-- [ ] Repository contains no unnecessary local artifacts.
+## References
 
-## Technologies
+The notebook draws on the following key academic sources, cited inline throughout:
 
-- [Qiskit](https://www.ibm.com/quantum/qiskit)
-- [Qiskit Aer](https://qiskit.github.io/qiskit-aer/)
-- [Jupyter Notebook](https://jupyter.org/)
-- [Python Standard Library](https://docs.python.org/3/library/) (`random`, `itertools`)
+- Deutsch, D. (1985). *Quantum theory, the Church-Turing principle and the universal quantum computer.* Proceedings of the Royal Society A. [doi:10.1098/rspa.1985.0070](https://doi.org/10.1098/rspa.1985.0070)
+- Deutsch, D. & Jozsa, R. (1992). *Rapid solution of problems by quantum computation.* Proceedings of the Royal Society A. [doi:10.1098/rspa.1992.0167](https://doi.org/10.1098/rspa.1992.0167)
+- de Wolf, R. (2019). *Quantum Computing: Lecture Notes.* [arXiv:1907.09415](https://arxiv.org/abs/1907.09415)
+- Aaronson, S. *Quantum Computing Since Democritus*, [Lecture 17](https://www.scottaaronson.com/qclec/17.pdf).
+- [IBM Quantum Learning](https://quantum.cloud.ibm.com/learning) — course materials on quantum circuits, single systems, and the Deutsch-Jozsa algorithm.

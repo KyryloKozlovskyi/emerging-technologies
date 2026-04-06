@@ -25,19 +25,32 @@ Each problem includes a structured narrative (Problem Description, My Understand
 
 ## Getting Started
 
-### Prerequisites
+### Option 1: GitHub Codespaces (Recommended)
+
+The easiest way to run this notebook is with [GitHub Codespaces](https://github.com/features/codespaces), which provides a pre-configured cloud environment with no local setup required:
+
+1. Navigate to the repository on GitHub.
+2. Click the green **Code** button and select **Open with Codespaces**.
+3. Once the environment loads, open `problems.ipynb`.
+4. Select **Kernel > Restart & Run All** to execute every cell from scratch.
+
+The repository includes a [devcontainer](.devcontainer/) configuration that automatically installs all dependencies, so no manual setup is needed.
+
+### Option 2: Run Locally
+
+#### Prerequisites
 
 - [Python 3](https://www.python.org/downloads/) (3.10 or later recommended)
 - [Git](https://git-scm.com/)
 
-### Clone the Repository
+#### Clone the Repository
 
 ```bash
 git clone https://github.com/KyryloKozlovskyi/emerging-technologies.git
 cd emerging-technologies
 ```
 
-### Install Dependencies
+#### Install Dependencies
 
 It is recommended to use a virtual environment:
 
@@ -47,7 +60,7 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### Run the Notebook
+#### Run the Notebook
 
 ```bash
 jupyter notebook problems.ipynb
@@ -59,10 +72,11 @@ Then select **Kernel > Restart & Run All** to execute every cell from scratch an
 
 ```
 emerging-technologies/
-├── problems.ipynb      # Main assessment notebook (5 problems)
-├── requirements.txt    # Python package dependencies
-├── .gitignore          # Standard Python/Jupyter ignores
-└── README.md           # This file
+├── .devcontainer/          # Codespaces / devcontainer configuration
+├── problems.ipynb          # Main assessment notebook (5 problems)
+├── requirements.txt        # Python package dependencies
+├── .gitignore              # Standard Python/Jupyter ignores
+└── README.md               # This file
 ```
 
 ## Technologies Used

@@ -5,23 +5,125 @@
 
 ## About This Repository
 
-This repository contains my assessment submission for the [Emerging Technologies](https://www.atu.ie/) module at Atlantic Technological University. The primary deliverable is a Jupyter notebook ([`problems.ipynb`](problems.ipynb)) that explores the difference between classical and quantum approaches to determining whether a Boolean function is constant or balanced.
+This repository contains my assessment submission for the [Emerging Technologies](https://www.atu.ie/) module at Atlantic Technological University. The work focuses on understanding and implementing the [Deutsch-Jozsa algorithm](https://quantum.cloud.ibm.com/learning/en/modules/computer-science/deutsch-jozsa) — one of the earliest demonstrations of quantum computational advantage over classical computation.
 
-The notebook focuses on the [Deutsch-Jozsa algorithm](https://quantum.cloud.ibm.com/learning/en/modules/computer-science/deutsch-jozsa) — one of the earliest demonstrations of quantum computational advantage. First proposed by [Deutsch (1985)](https://doi.org/10.1098/rspa.1985.0070) for the single-bit case and later generalised by [Deutsch & Jozsa (1992)](https://doi.org/10.1098/rspa.1992.0167), the algorithm determines a global property of a function using a single quantum query where a classical approach may require up to nine.
+All work is completed in a single Jupyter notebook ([`problems.ipynb`](problems.ipynb)) containing five interconnected problems that progressively build from classical Boolean function generation to a full quantum circuit implementation using [Qiskit](https://www.ibm.com/quantum/qiskit) and [Qiskit Aer](https://qiskit.github.io/qiskit-aer/).
 
-All quantum circuits are implemented using [Qiskit](https://www.ibm.com/quantum/qiskit) and simulated locally with [Qiskit Aer](https://qiskit.github.io/qiskit-aer/).
+### The Deutsch-Jozsa Problem
 
-## Notebook Overview
+Given a black-box Boolean function that is promised to be either **constant** (same output for every input) or **balanced** (returns `True` for exactly half of its inputs), the goal is to determine which type it is using as few queries as possible. For a 4-bit function, a classical deterministic algorithm requires up to $2^{n-1} + 1 = 9$ queries in the worst case. The Deutsch-Jozsa quantum algorithm solves the same problem with a single query — an exponential speedup achieved through superposition and interference, as first proposed by [Deutsch (1985)](https://doi.org/10.1098/rspa.1985.0070) and generalised by [Deutsch & Jozsa (1992)](https://doi.org/10.1098/rspa.1992.0167).
 
-The notebook works through five problems that build on each other, progressing from classical computation to quantum circuit design:
+## Repository Structure
 
-1. **Generating Random Boolean Functions** — constructing callable oracle functions that are either constant or balanced, using truth tables and closures to simulate black-box behaviour.
-2. **Classical Testing for Function Type** — building a deterministic classifier with an early-exit strategy, and analysing its worst-case query complexity ($2^{n-1} + 1 = 9$ queries for $n = 4$) using the pigeonhole principle.
-3. **Quantum Oracles** — encoding the four single-bit Boolean functions as reversible quantum gate circuits using X and CX gates, following the standard oracle model $U_f|x\rangle|y\rangle = |x\rangle|y \oplus f(x)\rangle$.
-4. **Deutsch's Algorithm** — implementing the single-bit quantum algorithm with Qiskit, demonstrating phase kickback and interference to classify an oracle with one query.
-5. **Deutsch-Jozsa Algorithm** — generalising to 4-bit inputs using multi-controlled X gates, showing that a single quantum query replaces up to nine classical queries.
+```
+emerging-technologies/
+├── .devcontainer/          # Codespaces / devcontainer configuration
+├── problems.ipynb          # Main assessment notebook (5 problems)
+├── requirements.txt        # Python package dependencies
+├── .gitignore              # Standard Python/Jupyter ignores
+└── README.md               # This file
+```
 
-Each problem includes a structured narrative (Problem Description, My Understanding, Theory/Background, Approach, Discussion, Implementation, Demonstration, and Testing), code implementations with comments and docstrings, circuit diagrams, and independent verification tests.
+## Notebook Structure
+
+The notebook follows a clear narrative structure, with each problem building on the previous one:
+
+```
+problems.ipynb
+│
+├── Title & Introduction
+│   └── # Emerging Technologies
+│
+├── Imports
+│   └── random, itertools, math, qiskit, qiskit_aer
+│
+├── ## Problem 1: Generating Random Boolean Functions
+│   ├── Problem Description & Understanding
+│   ├── Theory / Background (truth tables, binomial coefficient)
+│   ├── Combinatorial verification (math.comb demo)
+│   ├── Approach & Discussion
+│   ├── Implementation — bin_args_to_int(), random_constant_balanced()
+│   ├── Demonstration (technique demos, function calls)
+│   └── Testing — test_random_constant_balanced() with statistical checks
+│
+├── ## Problem 2: Classical Testing for Function Type
+│   ├── Problem Description & Understanding
+│   ├── Theory / Background (pigeonhole principle, worst-case analysis)
+│   ├── Approach & Discussion (efficiency table, probabilistic comparison)
+│   ├── Implementation — determine_constant_balanced(), count_queries()
+│   ├── Demonstration (10-trial demo, query distribution analysis)
+│   └── Testing — test_determine_constant_balanced() + edge cases
+│
+├── ## Problem 3: Quantum Oracles
+│   ├── Problem Description & Understanding
+│   ├── Theory / Background (oracle model, gate table)
+│   ├── Approach & Discussion (phase kickback, modularity)
+│   ├── Implementation — make_oracle_f1() through make_oracle_f4()
+│   ├── Demonstration (circuit diagrams, truth table verification)
+│   ├── Reversibility check (oracle applied twice)
+│   └── Testing — full_oracle_test() (4 functions × 4 states)
+│
+├── ## Problem 4: Deutsch's Algorithm
+│   ├── Problem Description & Understanding
+│   ├── Theory / Background (step-by-step derivation, interference)
+│   ├── Approach & Discussion (common mistakes, determinism)
+│   ├── Implementation — deutsch_algorithm()
+│   ├── Demonstration (all 4 oracles, circuit diagrams)
+│   ├── Classical vs quantum comparison (2× speedup table)
+│   └── Testing — test_deutsch_algorithm()
+│
+└── ## Problem 5: Scaling to the Deutsch–Jozsa Algorithm
+    ├── Problem Description & Understanding
+    ├── Theory / Background (generalised derivation, oracle encoding)
+    ├── Approach & Discussion (scaling argument, probabilistic comparison)
+    ├── Implementation — make_dj_oracle(), deutsch_jozsa()
+    ├── Demonstration (2 constant + 2 balanced, circuit diagrams)
+    ├── Testing — test_deutsch_jozsa() (2 constant + 20 balanced)
+    └── Summary — classical vs quantum comparison table
+```
+
+Each problem section follows a consistent pattern:
+
+1. **Problem Description** — What the assessment requires
+2. **My Understanding** — My interpretation and strategy
+3. **Theory / Background** — Mathematical and quantum foundations
+4. **Approach** — How I plan to implement it
+5. **Discussion** — Analysis of efficiency, trade-offs, and connections
+6. **Implementation** — Well-documented Python code with docstrings
+7. **Demonstration** — Concrete examples and circuit diagrams
+8. **Testing** — Verification with assertions and edge cases
+
+## Problems Overview
+
+### Problem 1: Generating Random Boolean Functions
+
+Implements `random_constant_balanced()`, a function that randomly generates either a constant or balanced Boolean function over four inputs. Returns a **callable** `f(b1, b2, b3, b4) → bool` using closures to capture the truth table, simulating black-box oracle behaviour.
+
+The number of balanced 4-input functions is verified as $\binom{16}{8} = 12{,}870$ using `math.comb`, and testing includes a statistical balance check (≥400 each type in 1000 trials).
+
+### Problem 2: Classical Testing for Function Type
+
+Implements `determine_constant_balanced(f)`, a classical algorithm that classifies a given function as constant or balanced using an early-exit strategy. The analysis establishes the worst-case query complexity of $2^{n-1} + 1 = 9$ queries for $n = 4$, forming the baseline against which the quantum algorithms are compared.
+
+Includes an empirical query distribution analysis showing that balanced functions typically exit in ~2.8 queries on average.
+
+### Problem 3: Quantum Oracles
+
+Constructs quantum oracles for all four single-bit Boolean functions (`make_oracle_f1` through `make_oracle_f4`) using Qiskit. Each oracle encodes the function as a reversible unitary transformation $U_f|x\rangle|y\rangle = |x\rangle|y \oplus f(x)\rangle$.
+
+Includes a reversibility demonstration — applying each oracle twice confirms the ancilla returns to its original state for all input combinations.
+
+### Problem 4: Deutsch's Algorithm
+
+Implements `deutsch_algorithm(make_oracle)` for single-bit functions. The circuit uses superposition and phase kickback to classify the function as constant or balanced using a single oracle query, compared to the two queries required classically.
+
+Includes a classical-vs-quantum comparison table showing the 2× speedup for all four oracles.
+
+### Problem 5: Deutsch-Jozsa Algorithm
+
+Implements `make_dj_oracle(truth_table)` and `deutsch_jozsa(truth_table)` to handle the 4-bit functions from Problem 1. The oracle encoding uses multi-controlled X gates flanked by X gates to trigger on specific input patterns.
+
+A closing summary table compares classical deterministic (9 queries), classical probabilistic (3 queries, 87.5% confidence), and quantum (1 query, 100% certainty) approaches, with a scaling note: for $n = 100$, classical needs up to $2^{99} + 1$ queries while Deutsch-Jozsa still needs just 1.
 
 ## Getting Started
 
@@ -68,22 +170,47 @@ jupyter notebook problems.ipynb
 
 Then select **Kernel > Restart & Run All** to execute every cell from scratch and verify that the notebook runs without errors.
 
-## Repository Structure
-
-```
-emerging-technologies/
-├── .devcontainer/          # Codespaces / devcontainer configuration
-├── problems.ipynb          # Main assessment notebook (5 problems)
-├── requirements.txt        # Python package dependencies
-├── .gitignore              # Standard Python/Jupyter ignores
-└── README.md               # This file
-```
+**Note:** Run cells in order from top to bottom, as later problems depend on functions defined in earlier ones.
 
 ## Technologies Used
 
-- [Qiskit](https://www.ibm.com/quantum/qiskit) — quantum circuit construction, visualisation, and simulation. Used to build the oracle circuits, Deutsch's algorithm circuit, and the Deutsch-Jozsa circuit.
-- [Qiskit Aer](https://qiskit.github.io/qiskit-aer/) — local quantum simulator backend (`qasm_simulator`) for executing circuits without access to real quantum hardware.
-- [Python Standard Library](https://docs.python.org/3/library/) — `random` for generating constant and balanced truth tables, `itertools` for producing all Boolean input combinations.
+| Package | Purpose |
+|---|---|
+| [Qiskit](https://www.ibm.com/quantum/qiskit) | Quantum circuit construction, visualisation, and simulation |
+| [Qiskit Aer](https://qiskit.github.io/qiskit-aer/) | Local quantum simulator backend (`qasm_simulator`) |
+| [`random`](https://docs.python.org/3/library/random.html) | Generating constant and balanced truth tables |
+| [`itertools`](https://docs.python.org/3/library/itertools.html) | Producing all Boolean input combinations |
+| [`math`](https://docs.python.org/3/library/math.html) | Binomial coefficient verification (`math.comb`) |
+
+## Key Concepts Demonstrated
+
+### Phase Kickback
+
+When the ancilla qubit is prepared in $|-\rangle$, the oracle's effect simplifies from a bit flip to a phase: $U_f|x\rangle|-\rangle = (-1)^{f(x)}|x\rangle|-\rangle$. This is the mechanism that enables the quantum speedup.
+
+### Constructive and Destructive Interference
+
+For constant functions, all phase terms are identical and add constructively — the probability of measuring all zeros is 1. For balanced functions, half the terms are $+1$ and half are $-1$, producing perfect destructive interference — the probability of measuring all zeros is 0.
+
+### Oracle Reversibility
+
+Since XOR is its own inverse ($y \oplus f(x) \oplus f(x) = y$), applying any oracle twice restores the original state. This is verified experimentally for all oracles in Problem 3.
+
+### Exponential Quantum Speedup
+
+The classical worst case grows as $O(2^n)$ while the quantum algorithm always uses exactly 1 query. For $n = 100$, this means $2^{99} + 1$ classical queries versus 1 quantum query.
+
+## Testing
+
+Each problem includes a dedicated test function with assertions verified against known correct outputs:
+
+| Test Function | What It Verifies |
+|---|---|
+| `test_random_constant_balanced()` | 1000 trials: callable, correct type, statistical balance (≥400 each) |
+| `test_determine_constant_balanced()` | 1000 trials: correct classification, constant always uses 9 queries |
+| `full_oracle_test()` | 4 functions × 4 input states = 16 tests against expected truth tables |
+| `test_deutsch_algorithm()` | All 4 oracles classified correctly, all results deterministic |
+| `test_deutsch_jozsa()` | 2 constant (deterministic `0000`) + 20 random balanced (`0000` never appears) |
 
 ## References
 

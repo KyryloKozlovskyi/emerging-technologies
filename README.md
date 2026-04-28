@@ -94,3 +94,7 @@ The notebook draws on the following key academic sources, cited inline throughou
 - de Wolf, R. (2019). *Quantum Computing: Lecture Notes.* [arXiv:1907.09415](https://arxiv.org/abs/1907.09415)
 - Aaronson, S. *Quantum Computing Since Democritus*, [Lecture 17](https://www.scottaaronson.com/qclec/17.pdf).
 - [IBM Quantum Learning](https://quantum.cloud.ibm.com/learning) — course materials on quantum circuits, single systems, and the Deutsch-Jozsa algorithm.
+
+---
+
+AI assistance tools (GitHub Copilot, Claude Sonnet 4.6, Claude Opus 4.6, Claude Opus 4.7) were used to help generate test cases, draft docstrings, and write code comments.

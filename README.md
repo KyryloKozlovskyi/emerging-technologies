@@ -2,7 +2,7 @@
 
 ## About This Project
 
-This repository contains my assessment submission for the [Emerging Technologies](https://www.atu.ie/) module at Atlantic Technological University. The work focuses on understanding and implementing the [Deutsch-Jozsa algorithm](https://quantum.cloud.ibm.com/learning/en/modules/computer-science/deutsch-jozsa) — one of the earliest demonstrations of quantum computational advantage over classical computation.
+This repository contains my assessment submission for the Emerging Technologies module at Atlantic Technological University. The work focuses on understanding and implementing the [Deutsch-Jozsa algorithm](https://quantum.cloud.ibm.com/learning/en/modules/computer-science/deutsch-jozsa), one of the earliest demonstrations of quantum computational advantage over classical computation.
 
 All work is completed in a single Jupyter notebook ([`problems.ipynb`](problems.ipynb)) containing five interconnected problems that progressively build from classical Boolean function generation to a full quantum circuit implementation using [Qiskit](https://www.ibm.com/quantum/qiskit) and [Qiskit Aer](https://qiskit.github.io/qiskit-aer/).
 

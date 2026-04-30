@@ -1,9 +1,6 @@
 # Emerging Technologies
 
-**Module:** Emerging Technologies, Summer 25/26  
-**Author:** Kyrylo Kozlovskyi
-
-## About This Repository
+## About This Project
 
 This repository contains my assessment submission for the [Emerging Technologies](https://www.atu.ie/) module at Atlantic Technological University. The work focuses on understanding and implementing the [Deutsch-Jozsa algorithm](https://quantum.cloud.ibm.com/learning/en/modules/computer-science/deutsch-jozsa) — one of the earliest demonstrations of quantum computational advantage over classical computation.
 
@@ -17,7 +14,6 @@ Given a black-box Boolean function that is promised to be either **constant** (s
 
 ```
 emerging-technologies/
-├── .devcontainer/          # Codespaces / devcontainer configuration
 ├── problems.ipynb          # Main assessment notebook (5 problems)
 ├── requirements.txt        # Python package dependencies
 ├── .gitignore              # Standard Python/Jupyter ignores
@@ -93,6 +89,43 @@ Each problem section follows a consistent pattern:
 7. **Demonstration** — Concrete examples and circuit diagrams
 8. **Testing** — Verification with assertions and edge cases
 
+## Quick Start
+
+### Prerequisites
+
+- [Python 3](https://www.python.org/downloads/) (3.10 or later recommended)
+- [Git](https://git-scm.com/)
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/KyryloKozlovskyi/emerging-technologies.git
+cd emerging-technologies
+```
+
+### Set Up Environment (Recommended)
+
+```bash
+python -m venv .venv
+source .venv/bin/activate       # On macOS/Linux
+# or
+.venv\Scripts\activate          # On Windows
+```
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Run the Notebook
+
+```bash
+jupyter notebook problems.ipynb
+```
+
+**Note:** Run cells in order from top to bottom, as later problems depend on functions defined in earlier ones.
+
 ## Problems Overview
 
 ### Problem 1: Generating Random Boolean Functions
@@ -125,62 +158,15 @@ Implements `make_dj_oracle(truth_table)` and `deutsch_jozsa(truth_table)` to han
 
 A closing summary table compares classical deterministic (9 queries), classical probabilistic (3 queries, 87.5% confidence), and quantum (1 query, 100% certainty) approaches, with a scaling note: for $n = 100$, classical needs up to $2^{99} + 1$ queries while Deutsch-Jozsa still needs just 1.
 
-## Getting Started
-
-### Option 1: GitHub Codespaces (Recommended)
-
-The easiest way to run this notebook is with [GitHub Codespaces](https://github.com/features/codespaces), which provides a pre-configured cloud environment with no local setup required:
-
-1. Navigate to the repository on GitHub.
-2. Click the green **Code** button and select **Open with Codespaces**.
-3. Once the environment loads, open `problems.ipynb`.
-4. Select **Kernel > Restart & Run All** to execute every cell from scratch.
-
-The repository includes a [devcontainer](.devcontainer/) configuration that automatically installs all dependencies, so no manual setup is needed.
-
-### Option 2: Run Locally
-
-#### Prerequisites
-
-- [Python 3](https://www.python.org/downloads/) (3.10 or later recommended)
-- [Git](https://git-scm.com/)
-
-#### Clone the Repository
-
-```bash
-git clone https://github.com/KyryloKozlovskyi/emerging-technologies.git
-cd emerging-technologies
-```
-
-#### Install Dependencies
-
-It is recommended to use a virtual environment:
-
-```bash
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-#### Run the Notebook
-
-```bash
-jupyter notebook problems.ipynb
-```
-
-Then select **Kernel > Restart & Run All** to execute every cell from scratch and verify that the notebook runs without errors.
-
-**Note:** Run cells in order from top to bottom, as later problems depend on functions defined in earlier ones.
-
-## Technologies Used
+## Dependencies
 
 | Package | Purpose |
 |---|---|
 | [Qiskit](https://www.ibm.com/quantum/qiskit) | Quantum circuit construction, visualisation, and simulation |
 | [Qiskit Aer](https://qiskit.github.io/qiskit-aer/) | Local quantum simulator backend (`qasm_simulator`) |
-| [`random`](https://docs.python.org/3/library/random.html) | Generating constant and balanced truth tables |
-| [`itertools`](https://docs.python.org/3/library/itertools.html) | Producing all Boolean input combinations |
-| [`math`](https://docs.python.org/3/library/math.html) | Binomial coefficient verification (`math.comb`) |
+| [`random`](https://docs.python.org/3/library/random.html) | Generating constant and balanced truth tables (standard library) |
+| [`itertools`](https://docs.python.org/3/library/itertools.html) | Producing all Boolean input combinations (standard library) |
+| [`math`](https://docs.python.org/3/library/math.html) | Binomial coefficient verification via `math.comb` (standard library) |
 
 ## Key Concepts Demonstrated
 
@@ -214,13 +200,46 @@ Each problem includes a dedicated test function with assertions verified against
 
 ## References
 
-The notebook draws on the following key academic sources, cited inline throughout:
+All references used throughout the notebook are cited inline with context. The key sources are listed below, organised by category.
+
+### Academic Papers & Lectures
 
 - Deutsch, D. (1985). *Quantum theory, the Church-Turing principle and the universal quantum computer.* Proceedings of the Royal Society A. [doi:10.1098/rspa.1985.0070](https://doi.org/10.1098/rspa.1985.0070)
 - Deutsch, D. & Jozsa, R. (1992). *Rapid solution of problems by quantum computation.* Proceedings of the Royal Society A. [doi:10.1098/rspa.1992.0167](https://doi.org/10.1098/rspa.1992.0167)
 - de Wolf, R. (2019). *Quantum Computing: Lecture Notes.* [arXiv:1907.09415](https://arxiv.org/abs/1907.09415)
-- Aaronson, S. *Quantum Computing Since Democritus*, [Lecture 17](https://www.scottaaronson.com/qclec/17.pdf).
-- [IBM Quantum Learning](https://quantum.cloud.ibm.com/learning) — course materials on quantum circuits, single systems, and the Deutsch-Jozsa algorithm.
+- Aaronson, S. *Quantum Computing Since Democritus*, [Lecture 17](https://www.scottaaronson.com/qclec/17.pdf)
+
+### IBM Quantum Learning
+
+- [Deutsch-Jozsa Algorithm](https://quantum.cloud.ibm.com/learning/en/modules/computer-science/deutsch-jozsa) — module overview and worked examples
+- [Deutsch Algorithm](https://quantum.cloud.ibm.com/learning/en/courses/fundamentals-of-quantum-algorithms/quantum-query-algorithms/deutsch-algorithm) — single-bit oracle and circuit walkthrough
+- [Query Model of Computation](https://quantum.cloud.ibm.com/learning/en/courses/fundamentals-of-quantum-algorithms/quantum-query-algorithms/query-model-of-computation) — oracle and query complexity framework
+- [Classical Information: Single Systems](https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/single-systems/classical-information#deterministic-operations) — truth tables and deterministic operations
+- [Quantum Information: Single Systems](https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/single-systems/quantum-information) — X gate, unitary operations, standard gates
+- [Multiple Systems: CX Gate](https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/multiple-systems/quantum-information#cnot-gate) — controlled-NOT gate
+- [Quantum Circuits](https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/quantum-circuits/introduction) — circuit model of computation
+- [Deutsch-Jozsa Algorithm (detailed)](https://quantum.cloud.ibm.com/learning/en/courses/fundamentals-of-quantum-algorithms/quantum-query-algorithms/deutsch-jozsa-algorithm) — full generalisation with derivation
+
+### Qiskit & Qiskit Aer Documentation
+
+- [Qiskit](https://www.ibm.com/quantum/qiskit) — quantum computing SDK
+- [Qiskit Aer](https://qiskit.github.io/qiskit-aer/) — local simulator backend
+- [MCX Gate API](https://docs.quantum.ibm.com/api/qiskit/qiskit.circuit.QuantumCircuit#mcx) — multi-controlled X gate reference
+
+### Python Documentation
+
+- [`random` module](https://docs.python.org/3/library/random.html) — `random.choice`, `random.shuffle`
+- [`itertools.product`](https://docs.python.org/3/library/itertools.html) — Cartesian product of input iterables
+- [`math.comb`](https://docs.python.org/3/library/math.html#math.comb) — binomial coefficient computation
+- [First-class objects](https://docs.python.org/3/glossary.html#term-first-class) — functions as values
+- [Closures](https://docs.python.org/3/reference/executionmodel.html#resolution-of-names) — name resolution in nested functions
+- [Function attributes](https://docs.python.org/3/reference/datamodel.html#the-standard-type-hierarchy) — attaching metadata to functions
+- [`int` function](https://docs.python.org/3/library/functions.html#int) — integer conversion
+- [Tuple repetition](https://docs.python.org/3/library/stdtypes.html#common-sequence-operations) — sequence operations
+
+## Author
+
+**Kyrylo Kozlovskyi - G00425385** 
 
 ---
 
